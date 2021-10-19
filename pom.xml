@@ -202,6 +202,10 @@
                             <name>akka-cluster-demo:${docker.image.version}</name>
                             <build>
                                 <from>openjdk:8-jre-alpine</from>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${docker.image.version}</tag>
+                                </tags>
                                 <ports>
                                     <port>8080</port>
                                     <port>8558</port>

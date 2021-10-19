@@ -1,3 +1,49 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pod-reader
+  namespace: akka-cluster-1
+rules:
+  - apiGroups: [ "" ] # "" indicates the core API group
+    resources: [ "pods" ]
+    verbs: [ "get", "watch", "list" ]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods
+  namespace: akka-cluster-1
+subjects:
+  - kind: Group
+    name: 'system:serviceaccounts:akka-cluster-1'
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: akka-cluster-demo
+  namespace: akka-cluster-1
+  labels:
+    app: akka-cluster-demo
+spec:
+  type: LoadBalancer
+  selector:
+    app: akka-cluster-demo
+  ports:
+    - name: http-endpoint
+      port: 8080
+      targetPort: 8080
+    - name: remoting
+      port: 2552
+      targetPort: 2552
+    - name: management
+      port: 8558
+      targetPort: 8558
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -9,13 +55,12 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-     app: akka-cluster-demo
+      app: akka-cluster-demo
   strategy:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
     type: RollingUpdate
-
   template:
     metadata:
       labels:
@@ -24,11 +69,8 @@ spec:
     spec:
       containers:
         - name: akka-cluster-demo
-# Use the following line when running with minishift
-#        image: akka-cluster-demo:latest
-# Use the following line when running with OpenShift and using the internal container registry
-          image: image-registry.openshift-image-registry.svc:5000/akka-cluster-1/akka-cluster-demo:1.0.0
-          imagePullPolicy: Always
+          image: akka-cluster-demo:latest
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             tcpSocket:
               port: 8558
