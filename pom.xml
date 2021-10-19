@@ -76,13 +76,23 @@
             <version>${akka.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.lightbend.akka.management</groupId>
-            <artifactId>akka-management-cluster-bootstrap_${scala.version}</artifactId>
-            <version>${akka.cluster.bootstrap.version}</version>
+             <groupId>com.lightbend.akka.management</groupId>
+             <artifactId>akka-management-cluster-bootstrap_${scala.version}</artifactId>
+             <version>${akka.cluster.bootstrap.version}</version>
+         </dependency>
+         <!--<dependency>
+             <groupId>com.lightbend.akka.discovery</groupId>
+             <artifactId>akka-discovery-kubernetes-api_${scala.version}</artifactId>
+             <version>${akka.cluster.bootstrap.version}</version>
+         </dependency>-->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-discovery_${scala.version}</artifactId>
+            <version>${akka.version}</version>
         </dependency>
         <dependency>
             <groupId>com.lightbend.akka.discovery</groupId>
-            <artifactId>akka-discovery-kubernetes-api_${scala.version}</artifactId>
+            <artifactId>akka-discovery-consul_${scala.version}</artifactId>
             <version>${akka.cluster.bootstrap.version}</version>
         </dependency>
         <dependency>

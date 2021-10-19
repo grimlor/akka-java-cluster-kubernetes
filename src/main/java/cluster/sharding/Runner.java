@@ -19,7 +19,7 @@ public class Runner {
     }
 
     private static void startupClusterNode() {
-        ActorSystem actorSystem = ActorSystem.create("akka-cluster-kubernetes");
+        ActorSystem actorSystem = ActorSystem.create("akka-cluster-demo");
 
         startClusterBootstrap(actorSystem);
 
