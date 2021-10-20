@@ -68,8 +68,8 @@ spec:
         actorSystemName: akka-cluster-demo
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "2552,8558,8080"
-        consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "2552,8558,8080"
+        consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "2552,8558,8080,25520"
+        consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "2552,8558,8080,25520"
         consul.hashicorp.com/service-tags: system:akka-cluster-demo,akka-management-port:8558
     spec:
       containers:
