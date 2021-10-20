@@ -38,8 +38,8 @@ spec:
       port: 8080
       targetPort: 8080
     - name: remoting
-      port: 2552
-      targetPort: 2552
+      port: 25520
+      targetPort: 25520
     - name: management
       port: 8558
       targetPort: 8558
@@ -68,8 +68,8 @@ spec:
         actorSystemName: akka-cluster-demo
       annotations:
         consul.hashicorp.com/connect-inject: "true"
-        consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "2552,8558,8080,25520"
-        consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "2552,8558,8080,25520"
+        consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "25520,8558"
+        consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "25520,8558"
         consul.hashicorp.com/service-tags: system:akka-cluster-demo,akka-management-port:8558
     spec:
       containers:
@@ -85,7 +85,7 @@ spec:
               protocol: TCP
             # akka remoting
             - name: remoting
-              containerPort: 2552
+              containerPort: 25520
               protocol: TCP
             # akka-management bootstrap
             # must match up with contact-point-discovery.port-name for bootstrap
